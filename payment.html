@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran Tiket Kapal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="brand-name">ShipTicket</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Beranda</a>
+                <a href="index.html#schedule" class="nav-link">Jadwal</a>
+                <a href="index.html#booking" class="nav-link">Pemesanan</a>
+                <a href="transaction_history.html" class="nav-link">Riwayat Transaksi</a>
+                <a href="index.html#about" class="nav-link">Tentang Kami</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Pembayaran Section -->
+    <section class="payment-section" id="payment">
+        <div class="container">
+            <h2>Pembayaran Tiket Kapal</h2>
+            <p>Silakan konfirmasi detail pemesanan Anda.</p>
+            
+            <div class="payment-details">
+                <h3>Detail Pemesanan</h3>
+                <div class="detail-item">
+                    <span>Nama Lengkap:</span>
+                    <span id="paymentFullName"></span>
+                </div>
+                <div class="detail-item">
+                    <span>Nomor Telepon:</span>
+                    <span id="paymentPhone"></span>
+                </div>
+                <div class="detail-item">
+                    <span>Jumlah Penumpang:</span>
+                    <span id="paymentPassengerCount"></span>
+                </div>
+                <div class="detail-item">
+                    <span>Jenis Kapal:</span>
+                    <span id="paymentShipType"></span>
+                </div>
+                <div class="detail-item">
+                    <span>Rute:</span>
+                    <span id="paymentRoute"></span>
+                </div>
+                <div class="detail-item">
+                    <span>Total Harga:</span>
+                    <span id="paymentTotalPrice"></span>
+                </div>
+            </div>
+
+            <h3>Pilih Metode Pembayaran</h3>
+            <div class="payment-methods">
+                <label>
+                    <input type="radio" name="paymentMethod" value="transfer" checked>
+                    Transfer Bank
+                </label>
+                <label>
+                    <input type="radio" name="paymentMethod" value="creditCard">
+                    Kartu Kredit
+                </label>
+                <label>
+                    <input type="radio" name="paymentMethod" value="eWallet">
+                    E-Wallet
+                </label>
+            </div>
+
+            <button class="confirm-btn" onclick="confirmPayment()">Konfirmasi Pembayaran</button>
+        </div>
+    </section>
+
+    <script>
+        // Ambil data dari localStorage
+        document.getElementById('paymentFullName').innerText = localStorage.getItem('fullName');
+        document.getElementById('paymentPhone').innerText = localStorage.getItem('phone');
+        document.getElementById('paymentPassengerCount').innerText = localStorage.getItem('passengerCount');
+        document.getElementById('paymentShipType').innerText = localStorage.getItem('shipType'); // Ambil jenis kapal
+        document.getElementById('paymentRoute').innerText = localStorage.getItem('route');
+        document.getElementById('paymentTotalPrice').innerText = localStorage.getItem('totalPrice');
+
+        function confirmPayment() {
+            // Ambil data dari localStorage
+            const fullName = localStorage.getItem('fullName');
+            const phone = localStorage.getItem('phone');
+            const passengerCount = localStorage.getItem('passengerCount');
+            const route = localStorage.getItem('route');
+            const shipType = localStorage.getItem('shipType'); // Ambil jenis kapal
+            const totalPrice = localStorage.getItem('totalPrice'); // Ambil total harga
+
+            // Simpan data transaksi ke localStorage
+            const transaction = {
+                fullName: fullName,
+                phone: phone,
+                passengerCount: passengerCount,
+                route: route,
+                shipType: shipType,
+                totalPrice: totalPrice,
+                date: new Date().toLocaleDateString() // Tanggal transaksi
+            };
+
+            // Ambil riwayat transaksi yang ada
+            let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+            transactions.push(transaction); // Tambahkan transaksi baru
+            localStorage.setItem('transactions', JSON.stringify(transactions)); // Simpan kembali ke localStorage
+
+            // Pindah ke halaman riwayat transaksi
+            window.location.href = 'transaction_history.html';
+        }
+    </script>
+</body>
+</html> 

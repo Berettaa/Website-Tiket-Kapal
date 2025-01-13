@@ -1,0 +1,11 @@
+/your-project-folder
+│
+├── index.html
+├── styles.css
+├── script.js
+├── images/
+│   ├── km_gambolo.jpg
+│   ├── km_sabuk_nusantara.jpg
+│   ├── mv_mentawai_fast.jpg
+│   └── (gambar lainnya)
+└── (file lainnya jika diperlukan)

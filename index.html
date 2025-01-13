@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Pemesanan Tiket Kapal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="brand-name">ShipTicket</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Beranda</a>
+                <a href="#" class="nav-link" onclick="showSchedule()">Jadwal</a>
+                <a href="index.html#booking" class="nav-link">Pemesanan</a>
+                <a href="transaction_history.html" class="nav-link">Riwayat Transaksi</a>
+                <a href="index.html#about" class="nav-link">Tentang Kami</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Jelajahi Kepulauan Mentawai</h1>
+            <p>Temukan perjalanan kapal terbaik untuk destinasi impian Anda</p>
+        </div>
+    </section>
+
+    <!-- Pemesanan Section -->
+    <section class="booking-section" id="booking">
+        <div class="container">
+            <h2>Pemesanan Tiket Kapal</h2>
+            <p>Isi form di bawah ini untuk memesan tiket kapal Anda.</p>
+            <form class="booking-form" onsubmit="return false;">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fullName">Nama Lengkap</label>
+                        <input type="text" id="fullName" required placeholder="Masukkan nama lengkap">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Nomor Telepon</label>
+                        <input type="tel" id="phone" required placeholder="Masukkan nomor telepon">
+                    </div>
+                    <div class="form-group">
+                        <label for="passengerCount">Jumlah Penumpang</label>
+                        <select id="passengerCount" required>
+                            <option value="1">1 Penumpang</option>
+                            <option value="2">2 Penumpang</option>
+                            <option value="3">3 Penumpang</option>
+                            <option value="4">4 Penumpang</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="shipType">Jenis Kapal</label>
+                        <select id="shipType" required>
+                            <option value="">Pilih Jenis Kapal</option>
+                            <option value="KM Gambolo">KM Gambolo</option>
+                            <option value="KM Sabuk Nusantara 68">KM Sabuk Nusantara 68</option>
+                            <option value="MV Mentawai Fast">MV Mentawai Fast</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="route">Daftar Jadwal Kapal</label>
+                        <select id="route" required>
+                            <option value="">Pilih Rute</option>
+                            <option value="bungus-tuapejat">Bungus - Tuapejat</option>
+                            <option value="telukbayur-tuapejat">Teluk Bayur - Tuapejat</option>
+                            <option value="muara-tuapejat">Muara - Tuapejat</option>
+                            <option value="bungus-siberut">Bungus - Siberut</option>
+                            <option value="telukbayur-siberut">Teluk Bayur - Siberut</option>
+                            <option value="bungus-sikabaluan">Bungus - Sikabaluan</option>
+                            <option value="telukbayur-sikabaluan">Teluk Bayur - Sikabaluan</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn" onclick="showSchedule()">Cari Tiket</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section class="schedule-section" id="schedule" style="display: none;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Jadwal Kapal</h2>
+                <p>Temukan jadwal perjalanan yang sesuai dengan rencana Anda</p>
+            </div>
+            <div class="schedule-grid">
+                <!-- Kapal Gambolo -->
+                <div class="schedule-card" data-route="bungus-tuapejat">
+                    <div class="card-image">
+                        <img src="images/km_gambolo.jpg" alt="KM Gambolo" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div class="card-content">
+                        <div class="ship-info">
+                            <h3 class="ship-name">KM Gambolo</h3>
+                            <span class="ship-type">Kapal Roro Penumpang</span>
+                        </div>
+                        <div class="schedule-details">
+                            <div class="time-info">
+                                <div class="departure-time">
+                                    <div class="time">10:00</div>
+                                    <div class="port">Bungus</div>
+                                </div>
+                                <div class="duration">6 Jam</div>
+                                <div class="arrival-time">
+                                    <div class="time">16:00</div>
+                                    <div class="port">Tuapejat</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-section">
+                            <div class="price">Rp 150.000</div>
+                            <div class="price-vip">Rp 225.000 (VIP)</div>
+                            <button class="book-btn" onclick="goToBooking('KM Gambolo', 'bungus-tuapejat')">Pesan Sekarang</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kapal Sabuk Nusantara -->
+                <div class="schedule-card" data-route="telukbayur-tuapejat">
+                    <div class="card-image">
+                        <img src="images/km_sabuk_nusantara.jpg" alt="KM Sabuk Nusantara 68" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div class="card-content">
+                        <div class="ship-info">
+                            <h3 class="ship-name">KM Sabuk Nusantara 68</h3>
+                            <span class="ship-type">Kapal Perintis</span>
+                        </div>
+                        <div class="schedule-details">
+                            <div class="time-info">
+                                <div class="departure-time">
+                                    <div class="time">19:00</div>
+                                    <div class="port">Teluk Bayur</div>
+                                </div>
+                                <div class="duration">8 Jam</div>
+                                <div class="arrival-time">
+                                    <div class="time">03:00</div>
+                                    <div class="port">Tuapejat</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-section">
+                            <div class="price">Rp 30.000</div>
+                            <div class="price-vip">Rp 45.000 (VIP)</div>
+                            <button class="book-btn" onclick="goToBooking('KM Sabuk Nusantara 68', 'telukbayur-tuapejat')">Pesan Sekarang</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MV Mentawai Fast -->
+                <div class="schedule-card" data-route="muara-tuapejat">
+                    <div class="card-image">
+                        <img src="images/mv_mentawai_fast.jpg" alt="MV Mentawai Fast" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div class="card-content">
+                        <div class="ship-info">
+                            <h3 class="ship-name">MV Mentawai Fast</h3>
+                            <span class="ship-type">Kapal Cepat</span>
+                        </div>
+                        <div class="schedule-details">
+                            <div class="time-info">
+                                <div class="departure-time">
+                                    <div class="time">07:00</div>
+                                    <div class="port">Muara</div>
+                                </div>
+                                <div class="duration">3 Jam</div>
+                                <div class="arrival-time">
+                                    <div class="time">10:00</div>
+                                    <div class="port">Tuapejat</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-section">
+                            <div class="price">Rp 280.000</div>
+                            <div class="price-vip">Rp 420.000 (VIP)</div>
+                            <button class="book-btn" onclick="goToBooking('MV Mentawai Fast', 'muara-tuapejat')">Pesan Sekarang</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kapal Gambolo -->
+                <div class="schedule-card" data-route="bungus-siberut">
+                    <div class="card-image">
+                        <i class="fas fa-ship" style="font-size: 50px; color: #007bff;"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="ship-info">
+                            <h3 class="ship-name">KM Gambolo</h3>
+                            <span class="ship-type">Kapal Roro Penumpang</span>
+                        </div>
+                        <div class="schedule-details">
+                            <div class="time-info">
+                                <div class="departure-time">
+                                    <div class="time">08:00</div>
+                                    <div class="port">Bungus</div>
+                                </div>
+                                <div class="duration">4 Jam</div>
+                                <div class="arrival-time">
+                                    <div class="time">12:00</div>
+                                    <div class="port">Siberut</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-section">
+                            <div class="price">Rp 145.000</div>
+                            <button class="book-btn">Pesan Sekarang</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kapal Sabuk Nusantara -->
+                <div class="schedule-card" data-route="telukbayur-sikabaluan">
+                    <div class="card-image">
+                        <i class="fas fa-ship" style="font-size: 50px; color: #28a745;"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="ship-info">
+                            <h3 class="ship-name">KM Sabuk Nusantara 68</h3>
+                            <span class="ship-type">Kapal Perintis</span>
+                        </div>
+                        <div class="schedule-details">
+                            <div class="time-info">
+                                <div class="departure-time">
+                                    <div class="time">20:00</div>
+                                    <div class="port">Teluk Bayur</div>
+                                </div>
+                                <div class="duration">7 Jam</div>
+                                <div class="arrival-time">
+                                    <div class="time">03:00</div>
+                                    <div class="port">Sikabaluan</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-section">
+                            <div class="price">Rp 155.000</div>
+                            <button class="book-btn">Pesan Sekarang</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pembayaran Section -->
+    <section class="payment-section" id="payment">
+        <div class="container">
+            <h2>Pembayaran Tiket Kapal</h2>
+            <p>Silakan pilih metode pembayaran dan konfirmasi detail pemesanan Anda.</p>
+            
+            <div class="payment-details">
+                <h3>Detail Pemesanan</h3>
+                <div class="detail-item">
+                    <span>Nama Lengkap:</span>
+                    <span id="paymentFullName"></span>
+                </div>
+                <div class="detail-item">
+                    <span>Nomor Identitas:</span>
+                    <span id="paymentIdNumber"></span>
+                </div>
+                <div class="detail-item">
+                    <span>Nomor Telepon:</span>
+                    <span id="paymentPhone"></span>
+                </div>
+                <div class="detail-item">
+                    <span>Email:</span>
+                    <span id="paymentEmail"></span>
+                </div>
+                <div class="detail-item">
+                    <span>Jumlah Penumpang:</span>
+                    <span id="paymentPassengerCount"></span>
+                </div>
+                <div class="detail-item">
+                    <span>Tanggal Keberangkatan:</span>
+                    <span id="paymentDepartureDate"></span>
+                </div>
+                <div class="detail-item">
+                    <span>Rute:</span>
+                    <span id="paymentRoute"></span>
+                </div>
+                <div class="detail-item">
+                    <span>Total Harga:</span>
+                    <span id="paymentTotalPrice"></span>
+                </div>
+            </div>
+
+            <h3>Pilih Metode Pembayaran</h3>
+            <div class="payment-methods">
+                <label>
+                    <input type="radio" name="paymentMethod" value="transfer" checked>
+                    Transfer Bank
+                </label>
+                <label>
+                    <input type="radio" name="paymentMethod" value="creditCard">
+                    Kartu Kredit
+                </label>
+                <label>
+                    <input type="radio" name="paymentMethod" value="eWallet">
+                    E-Wallet
+                </label>
+            </div>
+
+            <button class="confirm-payment-btn" onclick="confirmPayment()">Konfirmasi Pembayaran</button>
+        </div>
+    </section>
+
+    <!-- Tentang Kami Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2>Tentang Kami</h2>
+            <p>Nama: RIFKI AHMAD AL AFIF</p>
+            <p>NOBP: 23101152630116</p>
+            <p>Kelas: IF3</p>
+            <h3>Alasan Pembuatan Website</h3>
+            <p>Website pembelian tiket ini dibuat karena sering terjadinya selisih paham antara masyarakat yang tidak tertib saat memesan tiket di loket. Dengan adanya website ini, diharapkan proses pemesanan tiket menjadi lebih mudah dan teratur.</p>
+        </div>
+    </section>
+
+    <!-- Riwayat Pemesanan Section -->
+    <section class="booking-history-section" id="booking-history">
+        <div class="container">
+            <h2>Riwayat Pemesanan</h2>
+            <p>Berikut adalah riwayat pemesanan tiket kapal Anda.</p>
+            
+            <div class="booking-history">
+                <div class="history-item">
+                    <h3>KM Gambolo</h3>
+                    <p><strong>Nama:</strong> John Doe</p>
+                    <p><strong>Nomor Telepon:</strong> 08123456789</p>
+                    <p><strong>Jumlah Penumpang:</strong> 2</p>
+                    <p><strong>Tanggal Keberangkatan:</strong> 2023-10-01</p>
+                    <p><strong>Rute:</strong> Bungus - Tuapejat</p>
+                    <p><strong>Total Harga:</strong> Rp 300.000</p>
+                    <p><strong>Status:</strong> Selesai</p>
+                </div>
+                <div class="history-item">
+                    <h3>KM Sabuk Nusantara 68</h3>
+                    <p><strong>Nama:</strong> Jane Smith</p>
+                    <p><strong>Nomor Telepon:</strong> 08234567890</p>
+                    <p><strong>Jumlah Penumpang:</strong> 1</p>
+                    <p><strong>Tanggal Keberangkatan:</strong> 2023-10-05</p>
+                    <p><strong>Rute:</strong> Teluk Bayur - Tuapejat</p>
+                    <p><strong>Total Harga:</strong> Rp 30.000</p>
+                    <p><strong>Status:</strong> Selesai</p>
+                </div>
+                <!-- Tambahkan lebih banyak item riwayat sesuai kebutuhan -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Elemen Audio untuk Notifikasi -->
+    <audio id="notificationSound" src="sounds/bell_notification.mp3" preload="auto"></audio>
+
+    <!-- Elemen Audio untuk Notifikasi -->
+    <audio id="ringingNotification" src="sounds/ringing_notification.mp3" preload="auto"></audio>
+
+    <!-- Tombol Chatbot -->
+    <button class="chatbot-toggle" onclick="toggleChatbot()">Chat dengan Kami</button>
+
+    <!-- Chatbot Section -->
+    <div class="chatbot-container" id="chatbot" style="display: none;">
+        <div class="chatbot-header">
+            <h3>Asisten Chatbot</h3>
+            <button onclick="toggleChatbot()">X</button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages"></div>
+        <input type="text" id="userInput" placeholder="Ketik pesan Anda..." onkeypress="handleKeyPress(event)">
+        <button onclick="sendMessage()">Kirim</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.querySelectorAll('.route-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Hapus kelas aktif dari semua tab
+                document.querySelectorAll('.route-tab').forEach(t => t.classList.remove('active'));
+                // Tambahkan kelas aktif ke tab yang diklik
+                this.classList.add('active');
+
+                const route = this.dataset.route;
+                const scheduleCards = document.querySelectorAll('.schedule-card');
+
+                scheduleCards.forEach(card => {
+                    if (route === 'all' || card.dataset.route === route) {
+                        card.style.display = 'block'; // Tampilkan kartu
+                    } else {
+                        card.style.display = 'none'; // Sembunyikan kartu
+                    }
+                });
+            });
+        });
+
+        function confirmPayment() {
+            // Ambil data dari form pemesanan
+            const fullName = document.getElementById('fullName').value;
+            const phone = document.getElementById('phone').value;
+            const passengerCount = document.getElementById('passengerCount').value;
+            const route = document.getElementById('route').value;
+
+            // Hitung total harga (misalnya, menggunakan harga tetap untuk contoh ini)
+            const totalPrice = calculateTotalPrice(passengerCount); // Anda bisa menyesuaikan ini
+
+            // Tampilkan detail pembayaran
+            document.getElementById('paymentFullName').innerText = fullName;
+            document.getElementById('paymentPhone').innerText = phone;
+            document.getElementById('paymentPassengerCount').innerText = passengerCount;
+            document.getElementById('paymentRoute').innerText = route;
+            document.getElementById('paymentTotalPrice').innerText = `Rp ${totalPrice}`;
+
+            // Pindah ke bagian pembayaran
+            document.getElementById('payment').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function calculateTotalPrice(passengerCount) {
+            // Contoh harga per penumpang
+            const pricePerPassenger = 150000; // Ganti dengan harga yang sesuai
+            return pricePerPassenger * passengerCount;
+        }
+
+        function goToPayment() {
+            // Ambil data dari form pemesanan
+            const fullName = document.getElementById('fullName').value;
+            const phone = document.getElementById('phone').value;
+            const passengerCount = document.getElementById('passengerCount').value;
+            const route = document.getElementById('route').value;
+
+            // Hitung total harga (misalnya, menggunakan harga tetap untuk contoh ini)
+            const totalPrice = calculateTotalPrice(passengerCount); // Anda bisa menyesuaikan ini
+
+            // Simpan data ke localStorage
+            localStorage.setItem('fullName', fullName);
+            localStorage.setItem('phone', phone);
+            localStorage.setItem('passengerCount', passengerCount);
+            localStorage.setItem('route', route);
+            localStorage.setItem('totalPrice', `Rp ${totalPrice}`);
+
+            // Pindah ke halaman pembayaran
+            window.location.href = 'payment.html';
+        }
+
+        function goToBooking(shipType, route) {
+            // Simpan data ke localStorage
+            localStorage.setItem('shipType', shipType);
+            localStorage.setItem('route', route);
+            
+            // Pindah ke halaman pemesanan
+            window.location.href = 'payment.html';
+        }
+
+        function showSchedule() {
+            // Menyembunyikan form pemesanan jika ditampilkan
+            document.querySelector('.booking-section').style.display = 'none';
+            // Menampilkan jadwal kapal
+            document.querySelector('.schedule-section').style.display = 'block';
+        }
+
+        function toggleChatbot() {
+            const chatbot = document.getElementById('chatbot');
+            chatbot.style.display = chatbot.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const message = userInput.value.trim();
+            if (message) {
+                displayMessage(message, 'user-message');
+                userInput.value = '';
+                getBotResponse(message);
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function displayMessage(message, className) {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const messageElement = document.createElement('p');
+            messageElement.className = className;
+            messageElement.textContent = message;
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll ke bawah
+        }
+
+        function getBotResponse(userMessage) {
+            // Normalisasi input pengguna
+            const message = userMessage.toLowerCase();
+            let botResponse = "Maaf, saya tidak mengerti.";
+
+            // Kata kunci dan respons
+            if (message.includes("hai") || message.includes("halo")) {
+                botResponse = "Halo! Ada yang bisa saya bantu?";
+            } else if (message.includes("tiket")) {
+                botResponse = "Anda bisa memesan tiket melalui halaman pemesanan.";
+            } else if (message.includes("jadwal")) {
+                botResponse = "Jadwal kapal dapat dilihat di bagian jadwal di halaman utama.";
+            } else if (message.includes("harga")) {
+                botResponse = "Harga tiket bervariasi tergantung jenis kapal dan rute. Silakan cek di halaman pemesanan.";
+            } else if (message.includes("bantuan")) {
+                botResponse = "Tentu! Apa yang bisa saya bantu?";
+            } else if (message.includes("terima kasih")) {
+                botResponse = "Sama-sama! Jika ada pertanyaan lain, silakan tanyakan.";
+            } else if (message.includes("selamat tinggal") || message.includes("bye")) {
+                botResponse = "Selamat tinggal! Semoga hari Anda menyenangkan.";
+            } else if (message.includes("kapan kapal berangkat")) {
+                botResponse = "Silakan cek jadwal kapal di halaman jadwal.";
+            } else if (message.includes("kontak")) {
+                botResponse = "Anda dapat menghubungi kami melalui email di support@shipticket.com.";
+            }
+
+            displayMessage(botResponse, 'bot-message');
+        }
+    </script>
+</body>
+</html> 

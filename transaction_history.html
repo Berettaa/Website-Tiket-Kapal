@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Transaksi - ShipTicket</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="brand-name">ShipTicket</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Beranda</a>
+                <a href="index.html#schedule" class="nav-link">Jadwal</a>
+                <a href="index.html#booking" class="nav-link">Pemesanan</a>
+                <a href="transaction_history.html" class="nav-link">Riwayat Transaksi</a>
+                <a href="index.html#about" class="nav-link">Tentang Kami</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Riwayat Transaksi Section -->
+    <section class="transaction-history-section" id="transaction-history">
+        <div class="container">
+            <h2>Riwayat Transaksi</h2>
+            <p>Berikut adalah riwayat transaksi tiket kapal Anda.</p>
+            
+            <div class="transaction-list">
+                <!-- Contoh transaksi -->
+                <div class="transaction-item">
+                    <h3>KM Gambolo</h3>
+                    <p><strong>Nama:</strong> John Doe</p>
+                    <p><strong>Nomor Telepon:</strong> 08123456789</p>
+                    <p><strong>Jumlah Penumpang:</strong> 2</p>
+                    <p><strong>Rute:</strong> Bungus - Tuapejat</p>
+                    <p><strong>Total Harga:</strong> Rp 300.000</p>
+                    <p><strong>Status Pembayaran:</strong> Lunas</p>
+                    <p><strong>Tanggal Transaksi:</strong> 2023-10-01</p>
+                </div>
+                <div class="transaction-item">
+                    <h3>KM Sabuk Nusantara 68</h3>
+                    <p><strong>Nama:</strong> Jane Smith</p>
+                    <p><strong>Nomor Telepon:</strong> 08234567890</p>
+                    <p><strong>Jumlah Penumpang:</strong> 1</p>
+                    <p><strong>Rute:</strong> Teluk Bayur - Tuapejat</p>
+                    <p><strong>Total Harga:</strong> Rp 30.000</p>
+                    <p><strong>Status Pembayaran:</strong> Lunas</p>
+                    <p><strong>Tanggal Transaksi:</strong> 2023-10-05</p>
+                </div>
+                <!-- Tambahkan lebih banyak item transaksi sesuai kebutuhan -->
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+            const transactionList = document.querySelector('.transaction-list');
+
+            transactions.forEach(transaction => {
+                const transactionItem = document.createElement('div');
+                transactionItem.classList.add('transaction-item');
+                transactionItem.innerHTML = `
+                    <h3>${transaction.route} (${transaction.shipType})</h3>
+                    <p><strong>Nama:</strong> ${transaction.fullName}</p>
+                    <p><strong>Nomor Telepon:</strong> ${transaction.phone}</p>
+                    <p><strong>Jumlah Penumpang:</strong> ${transaction.passengerCount}</p>
+                    <p><strong>Total Harga:</strong> ${transaction.totalPrice}</p>
+                    <p><strong>Status Pembayaran:</strong> Lunas</p>
+                    <p><strong>Tanggal Transaksi:</strong> ${transaction.date}</p>
+                `;
+                transactionList.appendChild(transactionItem);
+            });
+        });
+    </script>
+</body>
+</html> 
